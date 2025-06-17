@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.example.backend_;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -9,6 +9,6 @@ public class HelloResource {
     @GET
     @Produces("text/plain")
     public String hello() {
-        return "Hello, World!";
+        return "Hello!, World";
     }
 }

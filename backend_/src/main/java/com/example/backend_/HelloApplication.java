@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.example.backend_;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
