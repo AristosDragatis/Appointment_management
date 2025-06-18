@@ -5,14 +5,11 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
 
-@Named("appointmentBean")
+@Named(value="appointmentBean")
 @RequestScoped
 public class AppointmentBean {
     @Inject
     private AppointmentSB appointmentSB;
-
-    @PersistenceContext
-    private jakarta.persistence.EntityManager em;
-
 }

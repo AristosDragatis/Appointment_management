@@ -5,9 +5,9 @@ export default function AddAppointment() {
       <h1>Add New Appointment</h1>
       <form>
         <label for="username">Firstname:</label><br></br>
-        <input type="text" id="firstname" name="username" placeholder='e.g. John'></input><br></br>
+        <input type="text" id="firstname" name="username" placeholder='e.g. John' required></input><br></br>
         <label for="lastname">Lastname:</label><br></br>
-        <input type="text" id="lastname" name="lastname" placeholder='e.g. Smith'></input><br></br>
+        <input type="text" id="lastname" name="lastname" placeholder='e.g. Smith' required></input><br></br>
         <label htmlFor="email">Email:</label><br/>
         <div className="d-flex justify-content-center">
           <input 
@@ -20,7 +20,6 @@ export default function AddAppointment() {
             required 
           />
         </div>
-        <br></br>
         <label for="profession">Service Name:</label><br></br>
         <div className="d-flex justify-content-center">
         <select class="form-select form-select-sm w-25 text-center" aria-label=".form-select-sm example">
@@ -32,12 +31,12 @@ export default function AddAppointment() {
 
         <label for="date">Date:</label><br></br>
         <div className="d-flex justify-content-center">
-          <input type="date" id="date" name="date" className="w-25"></input>
+          <input type="date" id="date" name="date" className="w-25" required></input>
         </div>
         
         <label for="time">Time:</label><br></br>
         <div className="d-flex justify-content-center">
-          <input type="time" id="time" name="time" className="w-25"></input>
+          <input type="time" id="time" name="time" className="w-25 form-control" required></input>
         </div>
 
         <br></br> 
