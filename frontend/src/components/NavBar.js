@@ -10,9 +10,6 @@ export default function NavBar() {
             <li className="nav-item">
               <Link className="nav-link" to="/">Homepage</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/users">User Management</Link>
-            </li>
           </ul>
         </div>
       </div>

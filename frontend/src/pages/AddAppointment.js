@@ -1,49 +1,78 @@
-import { Link } from 'react-router-dom';
-export default function AddAppointment() {
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+function AddAppointment() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    date: '',
+    time: '',
+    serviceId: ''
+  });
+  const [services, setServices] = useState([]);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  // Φέρνουμε τις υπηρεσίες από το backend
+  useEffect(() => {
+    fetch('http://localhost:8080/backend_/api/services')
+      .then(res => res.json())
+      .then(data => setServices(data))
+      .catch(() => setServices([]));
+  }, []);
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess(false);
+
+    const appointment = {
+      customerName: form.firstname + ' ' + form.lastname,
+      email: form.email,
+      date: form.date,
+      time: form.time,
+      service: { id: Number(form.serviceId) }
+    };
+
+    try {
+      const res = await fetch('http://localhost:8080/backend_/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(appointment)
+      });
+
+      if (!res.ok) throw new Error('Failed to save appointment');
+      setSuccess(true);
+      setTimeout(() => navigate('/'), 1000);
+    } catch (err) {
+      setError('Failed to set appointment');
+    }
+  };
+
   return (
-    <div className="text-center">
-      <h1>Add New Appointment</h1>
-      <form>
-        <label for="username">Firstname:</label><br></br>
-        <input type="text" id="firstname" name="username" placeholder='e.g. John' required></input><br></br>
-        <label for="lastname">Lastname:</label><br></br>
-        <input type="text" id="lastname" name="lastname" placeholder='e.g. Smith' required></input><br></br>
-        <label htmlFor="email">Email:</label><br/>
-        <div className="d-flex justify-content-center">
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            className="w-25 form-control"
-            placeholder='someone@example.com'
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            required 
-          />
-        </div>
-        <label for="profession">Service Name:</label><br></br>
-        <div className="d-flex justify-content-center">
-        <select class="form-select form-select-sm w-25 text-center" aria-label=".form-select-sm example">
-            <option selected>--Select One--</option>
-            <option value="1">Haircut</option>
-            <option value="2">Haircut/Beard</option>
-        </select>
-        </div>
-
-        <label for="date">Date:</label><br></br>
-        <div className="d-flex justify-content-center">
-          <input type="date" id="date" name="date" className="w-25" required></input>
-        </div>
-        
-        <label for="time">Time:</label><br></br>
-        <div className="d-flex justify-content-center">
-          <input type="time" id="time" name="time" className="w-25 form-control" required></input>
-        </div>
-
-        <br></br> 
-        <button type="button" class="btn btn-success">Submit</button>
-      </form>
-      <br></br>
-      <Link to="/users" className="btn btn-secondary btn-sm">Back</Link>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <h2>Add Appointment</h2>
+      <input name="firstname" placeholder="First name" onChange={handleChange} required />
+      <input name="lastname" placeholder="Last name" onChange={handleChange} required />
+      <input name="email" placeholder="Email" onChange={handleChange} required />
+      <input name="date" type="date" onChange={handleChange} required />
+      <input name="time" type="time" onChange={handleChange} required />
+      <select name="serviceId" onChange={handleChange} required>
+        <option value="">Select Service</option>
+        {services.map(s => (
+          <option key={s.id} value={s.id}>{s.serviceName}</option>
+        ))}
+      </select>
+      <button type="submit">Save</button>
+      {error && <div style={{color: 'red'}}>{error}</div>}
+      {success && <div style={{color: 'green'}}>Added successfuly!</div>}
+    </form>
   );
 }
+
+export default AddAppointment;
