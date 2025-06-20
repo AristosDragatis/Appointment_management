@@ -13,22 +13,19 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "first_name")
     private String firstName;
 
-    @Lob
     @Column(name = "last_name")
     private String lastName;
 
-    @Lob
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "professional")
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<Service> services = new LinkedHashSet<>();
 
     public Integer getId() {

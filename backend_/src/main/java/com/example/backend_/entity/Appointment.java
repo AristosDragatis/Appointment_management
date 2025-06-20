@@ -1,7 +1,6 @@
 package com.example.backend_.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,7 +12,6 @@ public class Appointment {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "customer_name")
     private String customerName;
 
@@ -23,7 +21,6 @@ public class Appointment {
     @Column(name = "\"time\"")
     private LocalTime time;
 
-    @Lob
     @Column(name = "status")
     private String status;
 

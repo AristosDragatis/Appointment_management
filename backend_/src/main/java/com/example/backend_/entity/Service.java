@@ -1,7 +1,6 @@
 package com.example.backend_.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -14,7 +13,6 @@ public class Service {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
     @Column(name = "service_name")
     private String serviceName;
 
@@ -28,7 +26,7 @@ public class Service {
     @JoinColumn(name = "professional_id")
     private User professional;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new LinkedHashSet<>();
 
     public Integer getId() {
