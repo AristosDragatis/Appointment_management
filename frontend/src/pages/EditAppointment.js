@@ -7,14 +7,18 @@ function EditAppointment() {
   const [form, setForm] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [services, setServices] = useState([]); //  services
+  const [professionals, setProfessionals] = useState([]); // professionals
 
 
-// bring services for the dropdown select one menu
-const [services, setServices] = useState([]);
+// fetch services and professionals
 useEffect(() => {
 fetch('http://localhost:8080/backend_/api/services')
   .then(res => res.json())
   .then(data => setServices(data));
+fetch('http://localhost:8080/backend_/api/users')
+  .then(res => res.json())
+  .then(data => setProfessionals(data));
 }, []);
 
   useEffect(() => {
@@ -42,6 +46,7 @@ fetch('http://localhost:8080/backend_/api/services')
    const updatedAppointment = {
       ...form,
       service: { id: form.service.id },
+      professional: { id: form.professional.id },
       status: form.status
     }; 
 
@@ -86,6 +91,21 @@ fetch('http://localhost:8080/backend_/api/services')
         required
         placeholder="Time"
       />
+      <select
+        name="professionalId"
+        value={form.professional?.id || ''}
+        onChange={e => {
+          const selectedProfessional = professionals.find(p => p.id === Number(e.target.value));
+          setForm({ ...form, professional: selectedProfessional });
+        }}
+        required>
+        <option value="">Select professional</option>
+        {professionals.map(p => (
+          <option key={p.id} value={p.id}>
+            {p.firstName} {p.lastName}
+          </option>
+        ))}
+      </select>
       <select
         name="status"
         value={form.status || ''}

@@ -8,10 +8,12 @@ function AddAppointment() {
     lastname: '',
     date: '',
     time: '',
+    professionalId: '',
     status: '',
     serviceId: ''
   });
   const [services, setServices] = useState([]);
+  const [professionals, setProfessionals] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -21,6 +23,9 @@ function AddAppointment() {
       .then(res => res.json())
       .then(data => setServices(data))
       .catch(() => setServices([]));
+    fetch('http://localhost:8080/backend_/api/users')
+      .then(res => res.json())
+      .then(data => setProfessionals(data));
   }, []);
 
   const handleChange = (e) =>
@@ -36,6 +41,7 @@ function AddAppointment() {
       email: form.email,
       date: form.date,
       time: form.time,
+      professional: { id: Number(form.professionalId)},
       status: form.status,
       service: { id: Number(form.serviceId) }
     };
@@ -62,6 +68,18 @@ function AddAppointment() {
       <input name="lastname" placeholder="Last name" onChange={handleChange} required />
       <input name="date" type="date" onChange={handleChange} required />
       <input name="time" type="time" onChange={handleChange} required />
+      <select
+        name="professionalId"
+        value={form.professionalId}
+        onChange={handleChange}
+        required>
+        <option value="">Select professional</option>
+        {professionals.map(p => (
+          <option key={p.id} value={p.id}>
+            {p.firstName} {p.lastName}
+          </option>
+        ))}
+      </select>
       <select
         name="status"
         value={form.status || ''}
