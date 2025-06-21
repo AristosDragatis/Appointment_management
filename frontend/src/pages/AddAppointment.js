@@ -59,7 +59,7 @@ function AddAppointment() {
       <h2>Add Appointment</h2>
       <input name="firstname" placeholder="First name" onChange={handleChange} required />
       <input name="lastname" placeholder="Last name" onChange={handleChange} required />
-      <input name="email" placeholder="Email" onChange={handleChange} required />
+      <input name="email" placeholder="Email" onChange={handleChange} />
       <input name="date" type="date" onChange={handleChange} required />
       <input name="time" type="time" onChange={handleChange} required />
       <select name="serviceId" onChange={handleChange} required>

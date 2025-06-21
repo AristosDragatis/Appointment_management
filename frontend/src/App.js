@@ -4,6 +4,9 @@ import AddAppointment from './pages/AddAppointment';
 import AppointmentsList from './pages/AppointmentsList';
 import ServicesList from './pages/ServicesList';
 import EditAppointment from './pages/EditAppointment';
+import UsersList from './pages/UsersList';
+import AddUser from './pages/AddUser';
+import EditUser from './pages/EditUser';
 import './App.css';
 
 function App() {
@@ -16,6 +19,9 @@ function App() {
           <Route path="/appointments/add" element={<AddAppointment/>} />
           <Route path="/services" element={<ServicesList/>} />
           <Route path="/appointments/edit/:id" element={<EditAppointment />} />
+          <Route path='/users' element={<UsersList/>} />
+          <Route path='/users/add' element={<AddUser/>} />
+          <Route path='/users/edit/:id' element={<EditUser/>} />
         </Routes>
       </div>
     </Router>

@@ -64,7 +64,6 @@ function EditAppointment() {
         name="email"
         value={form.email || ''}
         onChange={handleChange}
-        required
         placeholder="Email"
       />
       <input

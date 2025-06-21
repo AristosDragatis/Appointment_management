@@ -7,8 +7,12 @@ export default function NavBar() {
         <Link className="navbar-brand" to="/">Appointments</Link>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Homepage</Link>
+            <li>
+              <Link className="nav-link" to="/users">Professionals</Link>
+            </li>
+            <li>
+              <Link className='nav-link' to="/services">
+              Services</Link>
             </li>
           </ul>
         </div>
