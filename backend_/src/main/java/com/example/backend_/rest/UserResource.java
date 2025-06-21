@@ -23,7 +23,7 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-    public User getById(@PathParam("id") Long id) {
+    public User getById(@PathParam("id") Integer id) {
         return userSB.getUser(id);
     }
 
@@ -43,7 +43,7 @@ public class UserResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") Integer id) {
         userSB.delete(id);
         return Response.noContent().build();
     }

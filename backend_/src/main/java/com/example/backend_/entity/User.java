@@ -1,5 +1,6 @@
 package com.example.backend_.entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
 import java.util.LinkedHashSet;
@@ -22,12 +23,16 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<Appointment> appointments = new LinkedHashSet<>();
 
+    @JsonbTransient
     @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<Service> services = new LinkedHashSet<>();
 
+
+    // getters and setters
     public Integer getId() {
         return id;
     }

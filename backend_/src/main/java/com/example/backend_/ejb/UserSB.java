@@ -21,7 +21,7 @@ public class UserSB {
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-    public User getUser(Long id) {
+    public User getUser(Integer id) {
         return em.find(User.class, id);
     }
 
@@ -33,7 +33,7 @@ public class UserSB {
         em.merge(user);
     }
 
-    public void delete(Long id) {
+    public void delete(Integer id) {
         User user = em.find(User.class, id);
         if (user != null) {
             em.remove(user);
