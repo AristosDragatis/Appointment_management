@@ -6,16 +6,16 @@ function AddAppointment() {
   const [form, setForm] = useState({
     firstname: '',
     lastname: '',
-    email: '',
     date: '',
     time: '',
+    status: '',
     serviceId: ''
   });
   const [services, setServices] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  // Φέρνουμε τις υπηρεσίες από το backend
+  // bring services from backend
   useEffect(() => {
     fetch('http://localhost:8080/backend_/api/services')
       .then(res => res.json())
@@ -36,6 +36,7 @@ function AddAppointment() {
       email: form.email,
       date: form.date,
       time: form.time,
+      status: form.status,
       service: { id: Number(form.serviceId) }
     };
 
@@ -59,9 +60,18 @@ function AddAppointment() {
       <h2>Add Appointment</h2>
       <input name="firstname" placeholder="First name" onChange={handleChange} required />
       <input name="lastname" placeholder="Last name" onChange={handleChange} required />
-      <input name="email" placeholder="Email" onChange={handleChange} />
       <input name="date" type="date" onChange={handleChange} required />
       <input name="time" type="time" onChange={handleChange} required />
+      <select
+        name="status"
+        value={form.status || ''}
+        onChange={handleChange}
+        required>
+        <option value="">Select status</option>
+        <option value="PENDING">PENDING</option>
+        <option value="COMPLETED">COMPLETED</option>
+        <option value="CANCELLED">CANCELLED</option>
+      </select>
       <select name="serviceId" onChange={handleChange} required>
         <option value="">Select Service</option>
         {services.map(s => (

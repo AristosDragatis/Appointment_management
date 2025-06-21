@@ -41,4 +41,11 @@ public class AppointmentSB {
         return em.find(Appointment.class, id);
     }
 
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 }

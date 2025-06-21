@@ -8,6 +8,15 @@ function EditAppointment() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+
+// bring services for the dropdown select one menu
+const [services, setServices] = useState([]);
+useEffect(() => {
+fetch('http://localhost:8080/backend_/api/services')
+  .then(res => res.json())
+  .then(data => setServices(data));
+}, []);
+
   useEffect(() => {
     fetch(`http://localhost:8080/backend_/api/appointments/${id}`)
       .then(res => {
@@ -27,13 +36,14 @@ function EditAppointment() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess(false);
 
-    const updatedAppointment = {
+   const updatedAppointment = {
       ...form,
-      service: typeof form.service === 'object'
-        ? form.service
-        : { serviceName: form.service }
-    };
+      service: { id: form.service.id },
+      status: form.status
+    }; 
 
     try {
       const res = await fetch(`http://localhost:8080/backend_/api/appointments/${id}`, {
@@ -44,7 +54,7 @@ function EditAppointment() {
 
       if (!res.ok) throw new Error('Failed to update appointment');
       setSuccess(true);
-      setTimeout(() => navigate('/appointments'), 1000);
+      setTimeout(() => navigate('/'), 1000);
     } catch (err) {
       setError('Failed to update appointment');
     }
@@ -59,12 +69,6 @@ function EditAppointment() {
         onChange={handleChange}
         required
         placeholder="Customer Name"
-      />
-      <input
-        name="email"
-        value={form.email || ''}
-        onChange={handleChange}
-        placeholder="Email"
       />
       <input
         name="date"
@@ -82,13 +86,32 @@ function EditAppointment() {
         required
         placeholder="Time"
       />
-      <input
-        name="service"
-        value={typeof form.service === 'object' ? form.service.serviceName : form.service || ''}
+      <select
+        name="status"
+        value={form.status || ''}
         onChange={handleChange}
-        required
-        placeholder="Service"
-      />
+        required>
+        <option value="">Select status</option>
+        <option value="PENDING">PENDING</option>
+        <option value="COMPLETED">COMPLETED</option>
+        <option value="CANCELLED">CANCELLED</option>
+      </select>
+      <select
+        name="serviceId"
+        value={form.service?.id || ''}
+        onChange={e => {
+          const selectedService = services.find(s => s.id === Number(e.target.value));
+          setForm({ ...form, service: selectedService });
+        }}
+        required>
+        <option value="">Select service</option>
+        {services.map(s => (
+          <option key={s.id} value={s.id}>
+            {s.serviceName}
+          </option>
+        ))}
+      </select>
+      
       <button type="submit">Update</button>
       {success && <div style={{ color: 'green' }}>Appointment updated successfully!</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}

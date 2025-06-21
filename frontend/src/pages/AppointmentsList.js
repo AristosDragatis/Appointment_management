@@ -27,7 +27,9 @@ function AppointmentsList() {
       <th>Date</th>
       <th>Time</th>
       <th>Professional</th>
+      <th>Status</th>
       <th>Service</th>
+      <th>Price</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -42,7 +44,9 @@ function AppointmentsList() {
             ? `${a.professional.firstName} ${a.professional.lastName}`
             : ''}
         </td>
+        <td>{a.status}</td>
         <td>{a.service ? a.service.serviceName : ''}</td>
+        <td>{a.service ? a.service.price : ''}€</td>
         <td>
           <Link to={`/appointments/edit/${a.id}`}>Edit</Link>
           {' | '}
