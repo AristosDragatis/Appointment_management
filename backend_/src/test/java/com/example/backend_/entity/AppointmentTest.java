@@ -1,11 +1,8 @@
-package com.example.backend_.ejb;
+package com.example.backend_.entity;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import com.example.backend_.entity.Appointment;
-import com.example.backend_.entity.Service;
-import com.example.backend_.entity.User;
 
-public class AppointmentSBTest {
+public class AppointmentTest {
     @Test
     void create(){
         Appointment appointment = new Appointment();
