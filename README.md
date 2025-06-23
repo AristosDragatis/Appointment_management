@@ -10,8 +10,6 @@ A web application that simulates an appointment management system for barbershop
 - Edit/update existing appointments
 - Delete appointments
 - View list of scheduled appointments
-- Manage available services
-- Relational database with professional–service–appointment logic
 
 ---
 
