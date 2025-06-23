@@ -17,6 +17,8 @@ public class UserTest {
         String fullName = user.getFirstName() + " " + user.getLastName();
         user.setEmail("example@example.com");
         assertEquals("Aris Dragatis", fullName);
+        assertEquals("Aris", user.getFirstName());
+        assertEquals("Dragatis", user.getLastName());
         assertEquals("example@example.com" , user.getEmail());
     }
 }

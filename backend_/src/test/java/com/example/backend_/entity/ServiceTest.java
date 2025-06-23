@@ -22,5 +22,4 @@ public class ServiceTest {
     assertEquals(40, service.getDuration());
 
     }
-
 }
